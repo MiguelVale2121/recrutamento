@@ -15,13 +15,11 @@ class Todo {
   addToDo(content:string){
     if (this.currentId == this.nextId) {
       const todo = { id: this.nextId++, content };
-      console.log("MEGA GAY:" + this.currentId);
       this.currentId = this.nextId;
       this.todos.push(todo);
     }
     else {
       const todo = { id: this.currentId++, content };
-      console.log("NAO GAY:" + this.currentId);
       this.currentId = this.nextId;
       this.todos.push(todo);
     }
@@ -30,6 +28,7 @@ class Todo {
 
   //Get all todos
   getToDos(){
+    this.todos.sort((a, b) => a.id - b.id);
     return this.todos;
   }
 

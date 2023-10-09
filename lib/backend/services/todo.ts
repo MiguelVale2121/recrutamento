@@ -15,11 +15,13 @@ class Todo {
   addToDo(content:string){
     if (this.currentId == this.nextId) {
       const todo = { id: this.nextId++, content };
+      console.log("MEGA GAY:" + this.currentId);
       this.currentId = this.nextId;
       this.todos.push(todo);
     }
     else {
-      const todo = { id: ++this.currentId, content };
+      const todo = { id: this.currentId++, content };
+      console.log("NAO GAY:" + this.currentId);
       this.currentId = this.nextId;
       this.todos.push(todo);
     }
@@ -47,9 +49,12 @@ class Todo {
 
   //Delete a todo from the array
   deleteToDo(id:number){
-    const index = this.todos.findIndex((todo) => id == todo.id);
-    if (id == todo.id) this.currentId = id;
-    this.todos.splice(index, 1);
+    for (const todo of this.todos) {
+      if (id == todo.id) {
+        this.currentId = todo.id;
+        this.todos.splice(this.todos.indexOf(todo), 1);
+      }
+    }
   }
 }
 

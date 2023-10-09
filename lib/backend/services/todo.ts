@@ -1,11 +1,56 @@
 class Todo {
-  todos: Array<string>;
+  todos: Array<{ id: number; content: string }>;
+  nextId: number;
+  currentId: number;
 
   constructor() {
     this.todos = new Array();
+    this.nextId = 1;
+    this.currentId = 1;
   }
 
-  /* Add your todo methods here */
+  // CRUD operations
+
+  //Add a todo to the array
+  addToDo(content:string){
+    if (this.currentId == this.nextId) {
+      const todo = { id: this.nextId++, content };
+      this.currentId = this.nextId;
+      this.todos.push(todo);
+    }
+    else {
+      const todo = { id: ++this.currentId, content };
+      this.currentId = this.nextId;
+      this.todos.push(todo);
+    }
+    
+  }
+
+  //Get all todos
+  getToDos(){
+    return this.todos;
+  }
+
+  getToDoById(id:number){
+    for (const todo of this.todos) {
+      if (id == todo.id) {
+        return todo;
+      }
+    }
+  }
+
+  //Update a todo
+  updateToDo(id:number, content:string){
+    const index = this.todos.findIndex((todo) => id == todo.id);
+    this.todos[index].content = content;
+  }
+
+  //Delete a todo from the array
+  deleteToDo(id:number){
+    const index = this.todos.findIndex((todo) => id == todo.id);
+    if (id == todo.id) this.currentId = id;
+    this.todos.splice(index, 1);
+  }
 }
 
 // Todo Service lifecycle management
